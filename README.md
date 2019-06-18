@@ -10,5 +10,5 @@
 
 **Endpoints**
 
-http://localhost:3000/scores/mlb - MLB
-http://localhost:3000/scores/wwc - Women's World Cup
+* http://localhost:3000/scores/mlb - MLB
+* http://localhost:3000/scores/wwc - Women's World Cup
