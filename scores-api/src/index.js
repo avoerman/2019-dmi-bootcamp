@@ -1,8 +1,10 @@
 import express from "express";
+import cors from "cors";
 import mlbScoresRouter from "./routes/mlbScores";
 import womensWorldCupRouter from "./routes/womensWorldCup";
 
 const app = express();
+app.use(cors());
 
 app.use("/scores/mlb", mlbScoresRouter);
 app.use("/scores/wwc", womensWorldCupRouter);

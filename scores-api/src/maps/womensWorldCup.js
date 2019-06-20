@@ -4,6 +4,8 @@ const mapToInternalModel = data => {
   return events.map(event => ({
     id: event.id,
     name: event.name,
+    date: event.date,
+    status: event.status.type.name,
     shortName: event.shortName,
     completed: event.competitions[0].status.type.completed,
     clock: event.competitions[0].status.displayClock,
