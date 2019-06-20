@@ -1,6 +1,7 @@
 import express from "express";
 import axios from "axios";
 import mapToInternalModel from "../maps/womensWorldCup";
+import mapMatchToInternalModel from "../maps/womesWorldCupMatch"
 
 const scoreboardUri =
   "http://site.api.espn.com/apis/site/v2/sports/soccer/fifa.wwc/scoreboard";
@@ -11,6 +12,21 @@ router.get("/", async (req, res) => {
     const response = await axios.get(scoreboardUri);
     const data = response.data;
     const mapped = mapToInternalModel(data);
+
+    res.send(mapped);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.toString() });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const gameUri = scoreboardUri + "/" + req.params.id;
+    console.log(gameUri);
+    const response = await axios.get(gameUri);
+    const data = response.data;
+    const mapped = mapMatchToInternalModel(data);
 
     res.send(mapped);
   } catch (error) {
