@@ -22,8 +22,10 @@ const mapToInternalModel = data => {
 };
 
 function getTvBroadcast(competition) {
-  const tvBroadcast = competition.geoBroadcasts.find(b => b.type.shortName === 'TV');
-  return !!tvBroadcast ? tvBroadcast.media.shortName : '';
+  const tvBroadcast = competition.geoBroadcasts.find(
+    b => b.type.shortName === "TV" || b.type.shortName === "Web"
+  );
+  return !!tvBroadcast ? tvBroadcast.media.shortName : "";
 }
 
 export default mapToInternalModel;
