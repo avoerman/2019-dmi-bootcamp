@@ -4,11 +4,13 @@ const mapToInternalModel = data => {
   return events.map(event => ({
     id: event.id,
     name: event.name,
+    date: event.date,
     shortName: event.shortName,
     completed: event.competitions[0].status.type.completed,
     clock: event.competitions[0].status.displayClock,
     period: event.competitions[0].status.period,
-    status: event.competitions[0].status.type.shortDetail,
+    status: event.status.type.name,
+    statusDetail: event.competitions[0].status.type.shortDetail,
     tvBroadcast: getTvBroadcast(event.competitions[0]),
     score: event.competitions[0].competitors.map(scoreItem => ({
       homeAway: scoreItem.homeAway,
