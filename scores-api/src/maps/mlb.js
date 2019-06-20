@@ -7,6 +7,8 @@ const mapToInternalModel = data => {
     shortName: event.shortName,
     completed: event.competitions[0].status.type.completed,
     inning: event.competitions[0].status.period,
+    status: event.competitions[0].status.type.shortDetail,
+    tvBroadcast: getTvBroadcast(event.competitions[0]),
     score: event.competitions[0].competitors.map(scoreItem => ({
       homeAway: scoreItem.homeAway,
       score: scoreItem.score,
@@ -14,9 +16,15 @@ const mapToInternalModel = data => {
       errors: scoreItem.errors,
       winner: scoreItem.winner,
       teamAbbreviation: scoreItem.team.abbreviation,
-      team: scoreItem.team.displayName
+      team: scoreItem.team.displayName,
+      logo: scoreItem.team.logo
     }))
   }));
 };
+
+function getTvBroadcast(competition) {
+  const tvBroadcast = competition.geoBroadcasts.find(b => b.type.shortName === 'TV');
+  return !!tvBroadcast ? tvBroadcast.media.shortName : '';
+}
 
 export default mapToInternalModel;
