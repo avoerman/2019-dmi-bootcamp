@@ -1,24 +1,24 @@
-const mapToInternalModel = data => {
-  const events = data.events;
-
-  return events.map(event => ({
+const mapGameToInternalModel = event => {
+  return {
     id: event.id,
     name: event.name,
     shortName: event.shortName,
     completed: event.competitions[0].status.type.completed,
-    clock: event.competitions[0].status.displayClock,
-    period: event.competitions[0].status.period,
-    status: event.competitions[0].status.type.shortDetail,
+    inning: event.competitions[0].status.period,
+    status: event.status.type.shortDetail,
     tvBroadcast: getTvBroadcast(event.competitions[0]),
     score: event.competitions[0].competitors.map(scoreItem => ({
       homeAway: scoreItem.homeAway,
       score: scoreItem.score,
+      hits: scoreItem.hits,
+      errors: scoreItem.errors,
       winner: scoreItem.winner,
       teamAbbreviation: scoreItem.team.abbreviation,
       team: scoreItem.team.displayName,
-      logo: scoreItem.team.logo
+      logo: scoreItem.team.logo,
+      lineScores: scoreItem.linescores
     }))
-  }));
+  };
 };
 
 function getTvBroadcast(competition) {
@@ -28,4 +28,4 @@ function getTvBroadcast(competition) {
   return !!tvBroadcast ? tvBroadcast.media.shortName : "";
 }
 
-export default mapToInternalModel;
+export default mapGameToInternalModel;
