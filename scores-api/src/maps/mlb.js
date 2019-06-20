@@ -6,10 +6,10 @@ const mapToInternalModel = data => {
     date: event.date,
     name: event.name,
     shortName: event.shortName,
-    status: event.status.type.name,
     completed: event.competitions[0].status.type.completed,
     inning: event.competitions[0].status.period,
-    status: event.competitions[0].status.type.shortDetail,
+    status: event.status.type.name,
+    statusDetail: event.competitions[0].status.type.shortDetail,
     tvBroadcast: getTvBroadcast(event.competitions[0]),
     score: event.competitions[0].competitors.map(scoreItem => ({
       homeAway: scoreItem.homeAway,
