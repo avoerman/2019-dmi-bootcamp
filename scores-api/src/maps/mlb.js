@@ -24,7 +24,7 @@ const mapToInternalModel = data => {
 
 function getTvBroadcast(competition) {
   const tvBroadcast = competition.geoBroadcasts.find(
-    b => b.type.shortName === "TV"
+    b => b.type.shortName === "TV" || b.type.shortName === "Web"
   );
   return !!tvBroadcast ? tvBroadcast.media.shortName : "";
 }
