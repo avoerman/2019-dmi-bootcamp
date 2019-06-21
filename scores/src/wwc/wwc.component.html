@@ -1,0 +1,9 @@
+<div class="container">
+  <h2 class="title">Women's World Cup</h2>
+
+  <div class="columns is-multiline">
+    <div *ngFor="let scoreItem of scores | async" class="column">
+      <app-wwc-score-card [scoreItem]="scoreItem"></app-wwc-score-card>
+    </div>
+  </div>
+</div>

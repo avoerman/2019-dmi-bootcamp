@@ -6,19 +6,19 @@ import { AppComponent } from './app.component';
 import { SharedModule } from '../shared/shared.module';
 import { CoreModule } from '../core/core.module';
 import { MlbModule } from '../mlb/mlb.module';
+import { WwcModule } from '../wwc/wwc.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     SharedModule,
     CoreModule,
-    MlbModule
+    MlbModule,
+    WwcModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

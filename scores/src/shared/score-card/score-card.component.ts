@@ -6,6 +6,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./score-card.component.scss']
 })
 export class ScoreCardComponent implements OnInit {
+  @Input()
+  scoreItem: any;
+
   @Output()
   buttonClicked: EventEmitter<void> = new EventEmitter();
 
@@ -18,4 +21,16 @@ export class ScoreCardComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  get isScheduled() {
+    return this.scoreItem.statusType === 'STATUS_SCHEDULED';
+  }
+
+  get isInProgress() {
+    return this.scoreItem.statusType === 'STATUS_IN_PROGRESS';
+  }
+
+  get isFinal() {
+    return this.scoreItem.statusType === 'STATUS_FINAL';
+  }
 }
