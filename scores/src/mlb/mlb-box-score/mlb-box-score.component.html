@@ -11,6 +11,7 @@
 <div class="card" *ngIf="boxScore">
   <div class="card-content">
     <div class="columns is-vcentered is-centered">
+      <img [src]="home.logo" height="100" width="100"/>
       <div class="column has-text-centered is-3">
         <div class="score title">
           {{ home.score }}
@@ -28,6 +29,7 @@
           {{ away.team }}
         </div>
       </div>
+      <img [src]="away.logo" height="100" width="100"/>
     </div>
 
     <div class="subtitle has-text-centered">

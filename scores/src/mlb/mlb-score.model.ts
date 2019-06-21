@@ -39,6 +39,7 @@ export interface BoxScoreItem {
   teamAbbreviation: string;
   team: string;
   lineScores: LineScore[];
+  logo: string;
 }
 
 export interface LineScore {
