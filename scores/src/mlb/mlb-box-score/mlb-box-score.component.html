@@ -11,25 +11,25 @@
 <div class="card" *ngIf="boxScore">
   <div class="card-content">
     <div class="columns is-vcentered is-centered">
-      <img [src]="home.logo" height="100" width="100"/>
+      <img [src]="awayScore.logo" height="100" width="100"/>
       <div class="column has-text-centered is-3">
         <div class="score title">
-          {{ home.score }}
+          {{ awayScore.score }}
         </div>
         <div class="team">
-          {{ home.team }}
+          {{ awayScore.team }}
         </div>
       </div>
       <div class="column has-text-centered is-1">-</div>
       <div class="column has-text-centered is-3">
         <div class="score title">
-          {{ away.score }}
+          {{ homeScore.score }}
         </div>
         <div class="team">
-          {{ away.team }}
+          {{ homeScore.team }}
         </div>
       </div>
-      <img [src]="away.logo" height="100" width="100"/>
+      <img [src]="homeScore.logo" height="100" width="100"/>
     </div>
 
     <div class="subtitle has-text-centered">
@@ -49,22 +49,22 @@
             <th>E</th>
           </tr>
           <tr>
-            <td>{{ away.team }}</td>
+            <td>{{ awayScore.team }}</td>
             <td *ngFor="let line of awayLine">
               {{ line }}
             </td>
-            <td>{{ away.score }}</td>
-            <td>{{ away.hits }}</td>
-            <td>{{ away.errors }}</td>
+            <td>{{ awayScore.score }}</td>
+            <td>{{ awayScore.hits }}</td>
+            <td>{{ awayScore.errors }}</td>
           </tr>
           <tr>
-            <td>{{ home.team }}</td>
+            <td>{{ homeScore.team }}</td>
             <td *ngFor="let line of homeLine">
               {{ line }}
             </td>
-            <td>{{ home.score }}</td>
-            <td>{{ home.hits }}</td>
-            <td>{{ home.errors }}</td>
+            <td>{{ homeScore.score }}</td>
+            <td>{{ homeScore.hits }}</td>
+            <td>{{ homeScore.errors }}</td>
           </tr>
         </thead>
       </table>

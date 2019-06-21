@@ -2,16 +2,16 @@
   <div class="card-content">
     <div class="card-wrapper">
       <div class="team1">
-        {{ scoreItem.score[0].team }}
+        {{ scoreItem.awayScore.team }}
       </div>
       <div class="score1" *ngIf="!isScheduled">
-        {{ scoreItem.score[0].score }}
+        {{ scoreItem.awayScore.score }}
       </div>
       <div class="team2">
-        {{ scoreItem.score[1].team }}
+        {{ scoreItem.homeScore.team }}
       </div>
       <div class="score2" *ngIf="!isScheduled">
-        {{ scoreItem.score[1].score }}
+        {{ scoreItem.homeScore.score }}
       </div>
       <div class="status">
         <span

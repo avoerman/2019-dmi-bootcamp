@@ -7,7 +7,8 @@ export interface MlbScore {
   shortName: string;
   completed: boolean;
   inning: number;
-  score: ScoreItem[];
+  homeScore: ScoreItem;
+  awayScore: ScoreItem;
 }
 
 export interface ScoreItem {
@@ -20,12 +21,14 @@ export interface ScoreItem {
 
 export interface MlbBoxScore {
   id: string;
+  shortName: string;
   status: string;
   completed: boolean;
   inning: number;
   lastPlay: string;
   tvBroadcast: string;
-  header: BoxScoreItem[];
+  homeScore: BoxScoreItem;
+  awayScore: BoxScoreItem;
   currentSituation: BoxScoreSituation;
 }
 
