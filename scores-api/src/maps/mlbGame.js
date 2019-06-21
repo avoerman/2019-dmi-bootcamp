@@ -1,39 +1,67 @@
-import { getTeamScore } from './scoreHelpers';
+import { getTeamScore, getOdds, getTvBroadcast } from './scoreHelpers';
 
 const mapGameToInternalModel = event => {
   return {
     id: event.header.id,
+    shortName: getShortName(event.header),
     completed: event.header.competitions[0].status.type.completed,
     inning: event.header.competitions[0].status.period,
     status: event.header.competitions[0].status.type.shortDetail,
-    tvBroadcast: getTvBroadcast(event.header.competitions[0]),
+    tvBroadcast: getTvBroadcast(event.header.competitions[0].broadcasts),
     homeScore: mapScore(getTeamScore(event.header, 'home')),
     awayScore: mapScore(getTeamScore(event.header, 'away')),
     lastPlay: !!event.situation
       ? event.plays.find(p => p.id === event.situation.lastPlay.id).text
       : '',
     currentSituation: getCurrentSituation(event),
-    boxScores: event.boxscore.players.map(teamBox => ({
-      team: teamBox.team.displayName,
-      statistics: teamBox.statistics.map(stats => ({
-        type: stats.type,
-        labels: stats.labels,
-        descriptions: stats.descriptions,
-        totals: stats.totals,
-        players: stats.athletes.map(playerStats => ({
-          active: playerStats.active,
-          battingOrder: playerStats.batOrder,
-          starter: playerStats.starter,
-          name: playerStats.athlete.displayName,
-          number: playerStats.athlete.jersey,
-          position: playerStats.position.abbreviation,
-          stats: playerStats.stats,
-          notes: !!playerStats.notes ? playerStats.notes[0].text : ''
-        }))
+    homeBoxScore: mapBoxScore(
+      getBoxScore(event.boxscore.players, event.header, 'home')
+    ),
+    awayBoxScore: mapBoxScore(
+      getBoxScore(event.boxscore.players, event.header, 'away')
+    ),
+    odds: getOdds(event.pickcenter)
+  };
+};
+
+function getShortName(header) {
+  const homeTeam = getTeam(header, 'home');
+  const awayTeam = getTeam(header, 'away');
+  return `${awayTeam.team.abbreviation} @ ${homeTeam.team.abbreviation}`;
+}
+
+function getTeam(header, homeAway) {
+  return header.competitions[0].competitors.find(
+    team => team.homeAway === homeAway
+  );
+}
+
+function getBoxScore(boxScores, header, homeAway) {
+  const team = getTeam(header, homeAway);
+  return boxScores.find(p => p.team.id === team.id);
+}
+
+function mapBoxScore(teamBox) {
+  return {
+    team: teamBox.team.displayName,
+    statistics: teamBox.statistics.map(stats => ({
+      type: stats.type,
+      labels: stats.labels,
+      descriptions: stats.descriptions,
+      totals: stats.totals,
+      players: stats.athletes.map(playerStats => ({
+        active: playerStats.active,
+        battingOrder: playerStats.batOrder,
+        starter: playerStats.starter,
+        name: playerStats.athlete.displayName,
+        number: playerStats.athlete.jersey,
+        position: playerStats.position.abbreviation,
+        stats: playerStats.stats,
+        notes: !!playerStats.notes ? playerStats.notes[0].text : ''
       }))
     }))
   };
-};
+}
 
 function mapScore(scoreItem) {
   return {
@@ -62,13 +90,6 @@ function getCurrentSituation(event) {
     };
   }
   return null;
-}
-
-function getTvBroadcast(competition) {
-  const tvBroadcast = competition.broadcasts.find(
-    b => b.type.shortName === 'TV' || b.type.shortName === 'Web'
-  );
-  return !!tvBroadcast ? tvBroadcast.media.shortName : '';
 }
 
 export default mapGameToInternalModel;
