@@ -22,8 +22,8 @@ export class MlbBoxScoreComponent implements OnInit {
 
       this.mlbService.getMlbBoxScore(this.id).subscribe(res => {
         this.boxScore = res;
-        this.homeLine = this.getLineScore(this.boxScore.homeScore.lineScores);
-        this.awayLine = this.getLineScore(this.boxScore.awayScore.lineScores);
+        this.homeLine = this.getLineScore(this.boxScore.homeScore.lineScores || []);
+        this.awayLine = this.getLineScore(this.boxScore.awayScore.lineScores || []);
       });
     });
   }

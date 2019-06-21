@@ -2,7 +2,7 @@ export interface MlbScore {
   id: string;
   name: string;
   date: Date;
-  statusType: "STATUS_SCHEDULED" | "STATUS_IN_PROGRESS";
+  statusType: 'STATUS_SCHEDULED' | 'STATUS_IN_PROGRESS' | 'STATUS_FINAL';
   status: string;
   shortName: string;
   completed: boolean;
@@ -12,7 +12,7 @@ export interface MlbScore {
 }
 
 export interface ScoreItem {
-  homeAway: "home" | "away";
+  homeAway: 'home' | 'away';
   score: string;
   winner: boolean;
   teamAbbreviation: string;
@@ -42,7 +42,7 @@ export interface BoxScoreSituation {
 }
 
 export interface BoxScoreItem {
-  homeAway: "home" | "away";
+  homeAway: 'home' | 'away';
   score: string;
   hits: number;
   errors: number;
