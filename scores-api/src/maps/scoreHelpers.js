@@ -3,3 +3,12 @@ export const getTeamScore = (event, homeAway) => {
     team => team.homeAway === homeAway
   );
 };
+
+export const getOdds = (odds) => {
+  if (!!odds) {
+    return {
+      details: odds[0].details,
+      overUnder: odds[0].overUnder
+    }
+  }
+}

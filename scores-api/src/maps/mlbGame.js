@@ -1,4 +1,4 @@
-import { getTeamScore } from './scoreHelpers';
+import { getTeamScore, getOdds } from './scoreHelpers';
 
 const mapGameToInternalModel = event => {
   return {
@@ -31,7 +31,8 @@ const mapGameToInternalModel = event => {
           notes: !!playerStats.notes ? playerStats.notes[0].text : ''
         }))
       }))
-    }))
+    })),
+    odds: getOdds(event.pickcenter)
   };
 };
 
