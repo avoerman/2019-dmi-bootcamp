@@ -1,13 +1,11 @@
 const mapGameToInternalModel = event => {
   return {
-    id: event.id,
-    name: event.name,
-    shortName: event.shortName,
-    completed: event.competitions[0].status.type.completed,
-    inning: event.competitions[0].status.period,
-    status: event.status.type.shortDetail,
-    tvBroadcast: getTvBroadcast(event.competitions[0]),
-    score: event.competitions[0].competitors.map(scoreItem => ({
+    id: event.header.id,
+    completed: event.header.competitions[0].status.type.completed,
+    inning: event.header.competitions[0].status.period,
+    status: event.header.competitions[0].status.type.shortDetail,
+    tvBroadcast: getTvBroadcast(event.header.competitions[0]),
+    header: event.header.competitions[0].competitors.map(scoreItem => ({
       homeAway: scoreItem.homeAway,
       score: scoreItem.score,
       hits: scoreItem.hits,
@@ -15,14 +13,52 @@ const mapGameToInternalModel = event => {
       winner: scoreItem.winner,
       teamAbbreviation: scoreItem.team.abbreviation,
       team: scoreItem.team.displayName,
-      logo: scoreItem.team.logo,
-      lineScores: scoreItem.linescores
+      logo: scoreItem.team.logos[0].href,
+      lineScores: scoreItem.linescores,
+      record: scoreItem.record.find(r => r.type === "total").summary
+    })),
+    lastPlay: !!event.situation
+      ? event.plays.find(p => p.id === event.situation.lastPlay.id).text
+      : "",
+    currentSituation: getCurrentSituation(event),
+    boxScores: event.boxscore.players.map(teamBox => ({
+      team: teamBox.team.displayName,
+      statistics: teamBox.statistics.map(stats => ({
+        type: stats.type,
+        labels: stats.labels,
+        descriptions: stats.descriptions,
+        totals: stats.totals,
+        players: stats.athletes.map(playerStats => ({
+          active: playerStats.active,
+          battingOrder: playerStats.batOrder,
+          starter: playerStats.starter,
+          name: playerStats.athlete.displayName,
+          number: playerStats.athlete.jersey,
+          position: playerStats.position.abbreviation,
+          stats: playerStats.stats,
+          notes: !!playerStats.notes ? playerStats.notes[0].text : ''
+        }))
+      }))
     }))
   };
 };
 
+function getCurrentSituation(event) {
+  if (!!event.situation) {
+    return {
+      balls: event.situation.balls,
+      strikes: event.situation.strikes,
+      outs: event.situation.outs,
+      onFirst: !!event.situation.onFirst,
+      onSecond: !!event.situation.onSecond,
+      onThird: !!event.situation.onThird
+    };
+  }
+  return null;
+}
+
 function getTvBroadcast(competition) {
-  const tvBroadcast = competition.geoBroadcasts.find(
+  const tvBroadcast = competition.broadcasts.find(
     b => b.type.shortName === "TV" || b.type.shortName === "Web"
   );
   return !!tvBroadcast ? tvBroadcast.media.shortName : "";
