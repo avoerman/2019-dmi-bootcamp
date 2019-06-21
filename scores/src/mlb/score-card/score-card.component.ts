@@ -15,7 +15,11 @@ export class ScoreCardComponent implements OnInit {
   ngOnInit() {
   }
 
-  get scheduled() {
-    return this.scoreItem.status === 'STATUS_SCHEDULED';
+  get isScheduled() {
+    return this.scoreItem.statusType === 'STATUS_SCHEDULED';
+  }
+
+  get isInProgress() {
+    return this.scoreItem.statusType === 'STATUS_IN_PROGRESS';
   }
 }

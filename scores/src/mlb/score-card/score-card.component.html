@@ -1,22 +1,25 @@
 <div class="card">
-  <div class="card-content score-card-container">
-    <div class="columns is-vcentered">
-      <div class="column">
-        <div class="columns">
-          <div class="column">{{ scoreItem.score[0].team }}</div>
-          <div class="column score">
-            {{ scoreItem.score[0].score }}
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column">{{ scoreItem.score[1].team }}</div>
-          <div class="column score">
-            {{ scoreItem.score[1].score }}
-          </div>
-        </div>
+  <div class="card-content">
+    <div class="card-wrapper">
+      <div class="team1">
+        {{ scoreItem.score[0].team }}
       </div>
-      <div *ngIf="!scheduled" class="column tag">
-        {{ scoreItem.completed ? "F" : scoreItem.inning }}
+      <div class="score1" *ngIf="!isScheduled">
+        {{ scoreItem.score[0].score }}
+      </div>
+      <div class="team2">
+        {{ scoreItem.score[1].team }}
+      </div>
+      <div class="score2" *ngIf="!isScheduled">
+        {{ scoreItem.score[1].score }}
+      </div>
+      <div class="status">
+        <span
+          class="tag is-pulled-right"
+          [class.is-info]="isInProgress"
+          [class.is-white]="isScheduled"
+          >{{ scoreItem.status }}</span
+        >
       </div>
     </div>
   </div>

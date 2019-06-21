@@ -2,8 +2,70 @@
   <ul>
     <li><a [routerLink]="'/'">Home</a></li>
     <li><a [routerLink]="'../'">MLB</a></li>
-    <li class="is-active"><a>{{ id }}</a></li>
+    <li class="is-active">
+      <a>{{ boxScore?.shortName }}</a>
+    </li>
   </ul>
 </nav>
 
-<h2>Box Score : {{ id }}</h2>
+<div class="card" *ngIf="boxScore">
+  <div class="card-content">
+    <div class="columns is-vcentered is-centered">
+      <div class="column has-text-centered is-3">
+        <div class="score title">
+          {{ boxScore.score[0].score }}
+        </div>
+        <div class="team">
+          {{ boxScore.score[0].team }}
+        </div>
+      </div>
+      <div class="column has-text-centered is-1">-</div>
+      <div class="column has-text-centered is-3">
+        <div class="score title">
+          {{ boxScore.score[1].score }}
+        </div>
+        <div class="team">
+          {{ boxScore.score[1].team }}
+        </div>
+      </div>
+    </div>
+
+    <div class="subtitle has-text-centered">
+      <span class="tag">{{ boxScore.status }}</span>
+    </div>
+
+    <div class="content">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th *ngFor="let _ of homeLine; index as i">
+              {{ i + 1 }}
+            </th>
+            <th>R</th>
+            <th>H</th>
+            <th>E</th>
+          </tr>
+          <tr>
+            <td>{{ boxScore.score[0].team }}</td>
+            <td *ngFor="let line of homeLine">
+              {{ line }}
+            </td>
+            <td>{{ boxScore.score[0].score }}</td>
+            <td>{{ boxScore.score[0].hits }}</td>
+            <td>{{ boxScore.score[0].errors }}</td>
+          </tr>
+          <tr>
+            <td>{{ boxScore.score[1].team }}</td>
+            <td *ngFor="let line of awayLine">
+              {{ line }}
+            </td>
+            <td>{{ boxScore.score[1].score }}</td>
+            <td>{{ boxScore.score[1].hits }}</td>
+            <td>{{ boxScore.score[1].errors }}</td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
