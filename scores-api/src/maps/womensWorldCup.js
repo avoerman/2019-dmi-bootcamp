@@ -1,3 +1,5 @@
+import { getTvBroadcast } from './scoreHelpers';
+
 const mapToInternalModel = data => {
   const events = data.events;
 
@@ -12,7 +14,7 @@ const mapToInternalModel = data => {
     status: event.status.type.name,
     statusType: event.status.type.name,
     statusDetail: event.competitions[0].status.type.shortDetail,
-    tvBroadcast: getTvBroadcast(event.competitions[0]),
+    tvBroadcast: getTvBroadcast(event.competitions[0].geoBroadcasts),
     score: event.competitions[0].competitors.map(scoreItem => ({
       homeAway: scoreItem.homeAway,
       score: scoreItem.score,
@@ -23,12 +25,5 @@ const mapToInternalModel = data => {
     }))
   }));
 };
-
-function getTvBroadcast(competition) {
-  const tvBroadcast = competition.geoBroadcasts.find(
-    b => b.type.shortName === "TV" || b.type.shortName === "Web"
-  );
-  return !!tvBroadcast ? tvBroadcast.media.shortName : "";
-}
 
 export default mapToInternalModel;
