@@ -1,0 +1,14 @@
+.card {
+  min-width: 325px;
+}
+
+.card-content {
+  padding: .75em;
+}
+
+.card-wrapper {
+  grid-template-columns: auto 30px 65px;
+  display: grid;
+  grid-gap: 0.5em;
+  grid-template-areas: "team1 score1 status" "team2 score2 status";
+}

@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-content">
+    <div class="card-wrapper">
+      <ng-content></ng-content>
+    </div>
+  </div>
+  <footer class="card-footer">
+    <span class="card-footer-item column is-one-quarter">
+      <a *ngIf="showButton" (click)="buttonClicked.emit()" class="button is-success">
+        {{buttonText}}
+      </a>
+    </span>
+  </footer>
+</div>
