@@ -1,3 +1,5 @@
+import { getTeamScore } from './scoreHelpers';
+
 const mapGameToInternalModel = event => {
   return {
     id: event.header.id,
@@ -5,21 +7,11 @@ const mapGameToInternalModel = event => {
     inning: event.header.competitions[0].status.period,
     status: event.header.competitions[0].status.type.shortDetail,
     tvBroadcast: getTvBroadcast(event.header.competitions[0]),
-    header: event.header.competitions[0].competitors.map(scoreItem => ({
-      homeAway: scoreItem.homeAway,
-      score: scoreItem.score,
-      hits: scoreItem.hits,
-      errors: scoreItem.errors,
-      winner: scoreItem.winner,
-      teamAbbreviation: scoreItem.team.abbreviation,
-      team: scoreItem.team.displayName,
-      logo: scoreItem.team.logos[0].href,
-      lineScores: scoreItem.linescores,
-      record: scoreItem.record.find(r => r.type === "total").summary
-    })),
+    homeScore: mapScore(getTeamScore(event.header, 'home')),
+    awayScore: mapScore(getTeamScore(event.header, 'away')),
     lastPlay: !!event.situation
       ? event.plays.find(p => p.id === event.situation.lastPlay.id).text
-      : "",
+      : '',
     currentSituation: getCurrentSituation(event),
     boxScores: event.boxscore.players.map(teamBox => ({
       team: teamBox.team.displayName,
@@ -43,6 +35,21 @@ const mapGameToInternalModel = event => {
   };
 };
 
+function mapScore(scoreItem) {
+  return {
+    homeAway: scoreItem.homeAway,
+    score: scoreItem.score,
+    hits: scoreItem.hits,
+    errors: scoreItem.errors,
+    winner: scoreItem.winner,
+    teamAbbreviation: scoreItem.team.abbreviation,
+    team: scoreItem.team.displayName,
+    logo: scoreItem.team.logos[0].href,
+    lineScores: scoreItem.linescores,
+    record: scoreItem.record.find(r => r.type === 'total').summary
+  };
+}
+
 function getCurrentSituation(event) {
   if (!!event.situation) {
     return {
@@ -59,9 +66,9 @@ function getCurrentSituation(event) {
 
 function getTvBroadcast(competition) {
   const tvBroadcast = competition.broadcasts.find(
-    b => b.type.shortName === "TV" || b.type.shortName === "Web"
+    b => b.type.shortName === 'TV' || b.type.shortName === 'Web'
   );
-  return !!tvBroadcast ? tvBroadcast.media.shortName : "";
+  return !!tvBroadcast ? tvBroadcast.media.shortName : '';
 }
 
 export default mapGameToInternalModel;
