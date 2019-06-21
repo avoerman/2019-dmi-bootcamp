@@ -1,3 +1,5 @@
+import { getTvBroadcast } from './scoreHelpers';
+
 const mapMatchToInternalModel = event => {
   return {
     id: event.header.id,
@@ -7,7 +9,7 @@ const mapMatchToInternalModel = event => {
     clock: event.header.competitions[0].status.clock,
     status: event.header.competitions[0].status.type.shortDetail,
     note: event.header.season.name,
-    tvBroadcast: getTvBroadcast(event.header.competitions[0]),
+    tvBroadcast: getTvBroadcast(event.header.competitions[0].broadcasts),
     header: event.header.competitions[0].competitors.map(scoreItem => ({
       homeAway: scoreItem.homeAway,
       score: scoreItem.score,
@@ -39,13 +41,6 @@ function getGoals(details) {
     }));
   }
   return null;
-}
-
-function getTvBroadcast(competition) {
-  const tvBroadcast = competition.broadcasts.find(
-    b => b.type.shortName === "TV" || b.type.shortName === "Web"
-  );
-  return !!tvBroadcast ? tvBroadcast.media.shortName : "";
 }
 
 export default mapMatchToInternalModel;
