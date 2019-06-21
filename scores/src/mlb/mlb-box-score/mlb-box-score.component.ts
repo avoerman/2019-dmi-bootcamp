@@ -22,8 +22,8 @@ export class MlbBoxScoreComponent implements OnInit {
 
       this.mlbService.getMlbBoxScore(this.id).subscribe(res => {
         this.boxScore = res;
-        this.homeLine = this.getLineScore(res.score[0].lineScores);
-        this.awayLine = this.getLineScore(res.score[1].lineScores);
+        this.homeLine = this.getLineScore(this.home.lineScores);
+        this.awayLine = this.getLineScore(this.away.lineScores);
       });
     });
   }
@@ -31,6 +31,18 @@ export class MlbBoxScoreComponent implements OnInit {
   private getLineScore(lineScores: LineScore[]): string[] {
     return Array.from({ length: 9 }).map((u, i) =>
       lineScores[i] ? lineScores[i].value.toString() : ""
+    );
+  }
+
+  get home() {
+    return (
+      this.boxScore && this.boxScore.score.find(s => s.homeAway === "home")
+    );
+  }
+
+  get away() {
+    return (
+      this.boxScore && this.boxScore.score.find(s => s.homeAway === "away")
     );
   }
 }
