@@ -1,4 +1,4 @@
-import { getTeamScore } from './scoreHelpers';
+import { getTeamScore, getOdds, getTvBroadcast } from './scoreHelpers';
 
 const mapGameToInternalModel = event => {
   return {
@@ -6,7 +6,7 @@ const mapGameToInternalModel = event => {
     completed: event.header.competitions[0].status.type.completed,
     inning: event.header.competitions[0].status.period,
     status: event.header.competitions[0].status.type.shortDetail,
-    tvBroadcast: getTvBroadcast(event.header.competitions[0]),
+    tvBroadcast: getTvBroadcast(event.header.competitions[0].broadcasts),
     homeScore: mapScore(getTeamScore(event.header, 'home')),
     awayScore: mapScore(getTeamScore(event.header, 'away')),
     lastPlay: !!event.situation
@@ -31,7 +31,8 @@ const mapGameToInternalModel = event => {
           notes: !!playerStats.notes ? playerStats.notes[0].text : ''
         }))
       }))
-    }))
+    })),
+    odds: getOdds(event.pickcenter)
   };
 };
 
@@ -62,13 +63,6 @@ function getCurrentSituation(event) {
     };
   }
   return null;
-}
-
-function getTvBroadcast(competition) {
-  const tvBroadcast = competition.broadcasts.find(
-    b => b.type.shortName === 'TV' || b.type.shortName === 'Web'
-  );
-  return !!tvBroadcast ? tvBroadcast.media.shortName : '';
 }
 
 export default mapGameToInternalModel;
