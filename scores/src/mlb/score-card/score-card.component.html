@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="card-content score-card-container">
+    <div class="columns is-vcentered">
+      <div class="column">
+        <div class="columns">
+          <div class="column">{{ scoreItem.score[0].team }}</div>
+          <div class="column score">
+            {{ scoreItem.score[0].score }}
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column">{{ scoreItem.score[1].team }}</div>
+          <div class="column score">
+            {{ scoreItem.score[1].score }}
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!scheduled" class="column tag">
+        {{ scoreItem.completed ? "F" : scoreItem.inning }}
+      </div>
+    </div>
+  </div>
+  <footer class="card-footer">
+    <span class="card-footer-item column is-one-quarter">
+      <a [routerLink]="'/mlb/' + scoreItem.id" class="button is-success">
+        Box
+      </a>
+    </span>
+  </footer>
+</div>
