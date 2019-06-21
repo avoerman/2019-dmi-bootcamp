@@ -2,7 +2,7 @@ export interface MlbScore {
   id: string;
   name: string;
   date: Date;
-  statusType: 'STATUS_SCHEDULED' | 'STATUS_IN_PROGRESS';
+  statusType: "STATUS_SCHEDULED" | "STATUS_IN_PROGRESS";
   status: string;
   shortName: string;
   completed: boolean;
@@ -11,7 +11,7 @@ export interface MlbScore {
 }
 
 export interface ScoreItem {
-  homeAway: 'home' | 'away';
+  homeAway: "home" | "away";
   score: string;
   winner: boolean;
   teamAbbreviation: string;
@@ -20,18 +20,26 @@ export interface ScoreItem {
 
 export interface MlbBoxScore {
   id: string;
-  name: string;
-  date: Date;
-  statusType: 'STATUS_SCHEDULED' | 'STATUS_IN_PROGRESS';
   status: string;
-  shortName: string;
   completed: boolean;
   inning: number;
-  score: BoxScoreItem[];
+  lastPlay: string;
+  tvBroadcast: string;
+  header: BoxScoreItem[];
+  currentSituation: BoxScoreSituation;
+}
+
+export interface BoxScoreSituation {
+  balls: number;
+  strikes: number;
+  outs: number;
+  onFirst: boolean;
+  onSecond: boolean;
+  onThird: boolean;
 }
 
 export interface BoxScoreItem {
-  homeAway: 'home' | 'away';
+  homeAway: "home" | "away";
   score: string;
   hits: number;
   errors: number;
@@ -43,5 +51,5 @@ export interface BoxScoreItem {
 }
 
 export interface LineScore {
-  value: number;
+  displayValue: number;
 }

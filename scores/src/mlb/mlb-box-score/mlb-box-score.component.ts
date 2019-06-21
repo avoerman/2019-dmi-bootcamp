@@ -27,22 +27,23 @@ export class MlbBoxScoreComponent implements OnInit {
       });
     });
   }
-
+F
   private getLineScore(lineScores: LineScore[]): string[] {
-    return Array.from({ length: 9 }).map((u, i) =>
-      lineScores[i] ? lineScores[i].value.toString() : ""
+    const numberOfInnings = lineScores.length > 9 ? lineScores.length : 9;
+    return Array.from({ length: numberOfInnings }).map((u, i) =>
+      lineScores[i] ? lineScores[i].displayValue.toString() : ""
     );
   }
 
   get home() {
     return (
-      this.boxScore && this.boxScore.score.find(s => s.homeAway === "home")
+      this.boxScore && this.boxScore.header.find(s => s.homeAway === "home")
     );
   }
 
   get away() {
     return (
-      this.boxScore && this.boxScore.score.find(s => s.homeAway === "away")
+      this.boxScore && this.boxScore.header.find(s => s.homeAway === "away")
     );
   }
 }
