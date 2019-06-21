@@ -10,6 +10,7 @@ const mapToInternalModel = data => {
     clock: event.competitions[0].status.displayClock,
     period: event.competitions[0].status.period,
     status: event.status.type.name,
+    statusType: event.status.type.name,
     statusDetail: event.competitions[0].status.type.shortDetail,
     tvBroadcast: getTvBroadcast(event.competitions[0]),
     score: event.competitions[0].competitors.map(scoreItem => ({

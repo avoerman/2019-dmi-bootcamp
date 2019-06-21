@@ -6,6 +6,7 @@ const mapMatchToInternalModel = event => {
     completed: event.competitions[0].status.type.completed,
     inning: event.competitions[0].status.period,
     status: event.status.type.shortDetail,
+    statusType: event.status.type.name,
     tvBroadcast: getTvBroadcast(event.competitions[0]),
     score: event.competitions[0].competitors.map(scoreItem => ({
       homeAway: scoreItem.homeAway,
