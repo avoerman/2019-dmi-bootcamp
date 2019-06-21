@@ -5,6 +5,8 @@ import mapGameToInternalModel from "../maps/mlbGame";
 
 const mlbScoresUri =
   "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard";
+const mlbGameSummaryUri = 
+  "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/summary?event=";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -22,7 +24,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const gameUri = mlbScoresUri + "/" + req.params.id;
+    const gameUri = mlbGameSummaryUri + req.params.id;
     console.log(gameUri);
     const response = await axios.get(gameUri);
     const data = response.data;
