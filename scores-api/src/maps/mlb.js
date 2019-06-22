@@ -25,7 +25,7 @@ const mapToInternalModel = data => {
 function getAtBat(situation) {
   if(!!situation && !!situation.batter && !!situation.pitcher) {
     const pitcher = situation.pitcher.athlete.shortName;
-    const batter = `${situation.batter.athlete.shortDetail} (${situation.batter.athlete.summary})`;
+    const batter = `${situation.batter.athlete.shortName}`;
     return `${pitcher} pitching to ${batter}`
   }
   return null;
@@ -33,7 +33,7 @@ function getAtBat(situation) {
 
 function getLastPlay(situation) {
   if (!!situation) {
-    return event.competitions[0].lastPlay.text;
+    return situation.lastPlay.text;
   }
   return null;
 }
@@ -41,12 +41,12 @@ function getLastPlay(situation) {
 function getCurrentSituation(situation) {
   if (!!situation) {
     return {
-      balls: event.situation.balls,
-      strikes: event.situation.strikes,
-      outs: event.situation.outs,
-      onFirst: !!event.situation.onFirst,
-      onSecond: !!event.situation.onSecond,
-      onThird: !!event.situation.onThird
+      balls: situation.balls,
+      strikes: situation.strikes,
+      outs: situation.outs,
+      onFirst: !!situation.onFirst,
+      onSecond: !!situation.onSecond,
+      onThird: !!situation.onThird
     }
   }
   return null;
@@ -62,7 +62,7 @@ function mapScore(scoreItem) {
     teamAbbreviation: scoreItem.team.abbreviation,
     team: scoreItem.team.displayName,
     logo: scoreItem.team.logo,
-    record: scoreItem.records.find(r => r.type === 'Total').summary
+    record: scoreItem.records.find(r => r.type === 'total').summary
   };
 }
 
