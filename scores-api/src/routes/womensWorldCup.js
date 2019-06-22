@@ -11,7 +11,9 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const response = await axios.get(scoreboardUri);
+    const date = req.query.date;
+    const getAllScoresUri = !!date ? `${scoreboardUri}?dates=${date}` : scoreboardUri;
+    const response = await axios.get(getAllScoresUri);
     const data = response.data;
     const mapped = mapToInternalModel(data);
 
