@@ -1,16 +1,30 @@
 <div class="card">
   <div class="card-content">
     <div class="card-wrapper">
-      <div class="team1">
+      <div
+        class="team1"
+        [class.has-text-weight-bold]="scoreItem.awayScore.winner"
+      >
         {{ scoreItem.awayScore.team }}
       </div>
-      <div class="score1" *ngIf="!isScheduled">
+      <div
+        class="score1"
+        [class.has-text-weight-bold]="scoreItem.awayScore.winner"
+        *ngIf="!isScheduled"
+      >
         {{ scoreItem.awayScore.score }}
       </div>
-      <div class="team2">
+      <div
+        class="team2"
+        [class.has-text-weight-bold]="scoreItem.homeScore.winner"
+      >
         {{ scoreItem.homeScore.team }}
       </div>
-      <div class="score2" *ngIf="!isScheduled">
+      <div
+        class="score2"
+        [class.has-text-weight-bold]="scoreItem.homeScore.winner"
+        *ngIf="!isScheduled"
+      >
         {{ scoreItem.homeScore.score }}
       </div>
       <div class="status">
@@ -28,7 +42,9 @@
       <a
         *ngIf="showButton"
         (click)="buttonClicked.emit()"
-        class="button is-success"
+        class="button"
+        [class.is-success]="isInProgress"
+        [class.is-primary]="isScheduled"
       >
         {{ isScheduled ? 'Preview' : 'Box' }}
       </a>

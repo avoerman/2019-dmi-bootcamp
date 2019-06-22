@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { WwcScore } from './wwc-score.model';
+import { WwcBoxScore, WwcScore } from './wwc-score.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,5 +11,9 @@ export class WwcService {
 
   getScores(): Observable<WwcScore[]> {
     return this.http.get<WwcScore[]>('http://localhost:3000/scores/wwc/');
+  }
+
+  getBoxScore(id: string) {
+    return this.http.get<WwcBoxScore>(`http://localhost:3000/scores/wwc/${id}`);
   }
 }

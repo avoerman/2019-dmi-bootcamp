@@ -17,3 +17,13 @@ export interface WwcScoreItem {
   teamAbbreviation: string;
   team: string;
 }
+
+export interface WwcBoxScore extends WwcScore {
+  tvBroadcast: string;
+  homeScore: WwcBoxScoreItem;
+  awayScore: WwcBoxScoreItem;
+}
+
+export interface WwcBoxScoreItem extends WwcScoreItem {
+  logo: string;
+}

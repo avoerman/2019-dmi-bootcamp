@@ -7,11 +7,11 @@ export interface MlbScore {
   shortName: string;
   completed: boolean;
   inning: number;
-  homeScore: ScoreItem;
-  awayScore: ScoreItem;
+  homeScore: MlbScoreItem;
+  awayScore: MlbScoreItem;
 }
 
-export interface ScoreItem {
+export interface MlbScoreItem {
   homeAway: 'home' | 'away';
   score: string;
   winner: boolean;

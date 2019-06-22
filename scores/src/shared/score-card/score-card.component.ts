@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Score } from './score-item.model';
 
 @Component({
   selector: 'app-score-card',
@@ -7,7 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ScoreCardComponent implements OnInit {
   @Input()
-  scoreItem: any;
+  scoreItem: Score;
 
   @Output()
   buttonClicked: EventEmitter<void> = new EventEmitter();

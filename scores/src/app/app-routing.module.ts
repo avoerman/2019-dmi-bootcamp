@@ -4,6 +4,7 @@ import { HomeComponent } from '../core/home/home.component';
 import { MlbComponent } from '../mlb/mlb.component';
 import { MlbBoxScoreComponent } from '../mlb/mlb-box-score/mlb-box-score.component';
 import { WwcComponent } from '../wwc/wwc.component';
+import { WwcBoxScoreComponent } from '../wwc/wwc-box-score/wwc-box-score.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: '',
         component: WwcComponent
+      },
+      {
+        path: ':id',
+        component: WwcBoxScoreComponent
       }
     ]
   }
