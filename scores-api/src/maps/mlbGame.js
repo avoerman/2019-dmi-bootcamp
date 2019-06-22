@@ -10,9 +10,7 @@ const mapGameToInternalModel = event => {
     tvBroadcast: getTvBroadcast(event.header.competitions[0].broadcasts),
     homeScore: mapScore(getTeamScore(event.header, 'home')),
     awayScore: mapScore(getTeamScore(event.header, 'away')),
-    lastPlay: !!event.situation
-      ? event.plays.find(p => p.id === event.situation.lastPlay.id).text
-      : '',
+    lastPlay: getLastPlay(event),
     currentSituation: getCurrentSituation(event),
     homeBoxScore: mapBoxScore(
       getBoxScore(event.boxscore.players, event.header, 'home')
@@ -23,6 +21,14 @@ const mapGameToInternalModel = event => {
     odds: getOdds(event.pickcenter)
   };
 };
+
+function getLastPlay(event) {
+  if (!!event.situation) {
+    const lastPlay = event.plays.find(p => p.id === event.situation.lastPlay.id);
+    return !!lastPlay ? lastPlay.text : null;
+  }
+  return null;
+}
 
 function getShortName(header) {
   const homeTeam = getTeam(header, 'home');
