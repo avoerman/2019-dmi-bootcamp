@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { WwcBoxScore } from '../../wwc/wwc-score.model';
 
 @Component({
   selector: 'app-box-score-header',
@@ -8,7 +7,7 @@ import { WwcBoxScore } from '../../wwc/wwc-score.model';
 })
 export class BoxScoreHeaderComponent {
   @Input()
-  boxScore: WwcBoxScore;
+  boxScore: any;
 
   get homeScore() {
     return this.boxScore.homeScore;
