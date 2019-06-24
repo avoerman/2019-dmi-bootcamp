@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { SharedModule } from '../shared/shared.module';
 import { CoreModule } from '../core/core.module';
 import { MlbModule } from '../mlb/mlb.module';
-import { WwcModule } from '../wwc/wwc.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,8 +14,7 @@ import { WwcModule } from '../wwc/wwc.module';
     AppRoutingModule,
     SharedModule,
     CoreModule,
-    MlbModule,
-    WwcModule
+    MlbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
